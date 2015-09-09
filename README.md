@@ -1,11 +1,11 @@
 # clockr
-clockr is a simple curses clock written in python3. Only works in python3 currently, no plans for python2.
+clockr is a collaborative effort at a simple curses clock written in Python 3.
 
 # Installation
 * Arch Linux: clockr in the AUR
 * pip: clockr
 
-For manual installation, clone the repository and run
+For manual installation, clone the repository, cd into it and run
 ```
 # python setup.py install
 ```
