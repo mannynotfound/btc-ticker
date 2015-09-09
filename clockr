@@ -13,7 +13,7 @@ for arg in sys.argv:
     helpargs = arg
 
 if helpargs in ["help", "-h", "-help", "-H", "--h"]:
-    print( "usage: -h shows this help, pressing q exits.")
+    print("usage: -h shows this help -nd disables date line , pressing q exits.")
     sys.exit()
 
 if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
