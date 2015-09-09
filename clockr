@@ -5,15 +5,16 @@ import curses
 from math import floor
 from datetime import datetime as date
 import sys
-import time
 
 for arg in sys.argv:
     dateargs = arg
     aboutargs = arg
     helpargs = arg
+    colorargs = arg
 
 if helpargs in ["help", "-h", "-help", "-H", "--h"]:
-    print("usage: -h shows this help, -nd disables date line , pressing q exits.")
+    print( "usage: -h shows this help, pressing q exits. \n" \
+              "-red, -white, -blue")
     sys.exit()
 
 if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
@@ -21,6 +22,9 @@ if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
             "with some help from /r/linuxmasterrace irc\n"\
             "thanks to n473, thimoteus,  AWindowsKrill, timawesomeness, and somehow R0flcopt3r.")
     sys.exit()
+
+
+
 
 screen          = curses.initscr()
 last_width      = 0
@@ -38,7 +42,23 @@ glyph               = {
     '9': [" #######  ", "##     ## ", "##     ## ", " ######## ", "       ## ", "##     ## ", " #######  "],
     ':': ["   ", "   ", " # ", "   ", " # ", "   ", "   "]
 }
-
+maincolor = 0
+bgcolor = -1
+def getcolor():
+    if colorargs in ["-white"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 7, -1)
+        curses.init_pair(3, 0, 7)
+    elif colorargs in ["-red"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 1, -1)
+        curses.init_pair(3, 0, 1)
+    elif colorargs in ["-blue"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 4, -1)
+        curses.init_pair(3, 0, 4)
+    else:
+        pass
 def addstr(y, x, string, color):
     try:
                 screen.addstr( origin_y + y, origin_x + x, string, color)
@@ -75,19 +95,21 @@ def print_date(now):
         addstr(8, 0, day_line, curses.color_pair(3))
         addstr(8, len(day_line) + 40, date_line, curses.color_pair(2) | curses.A_BOLD)
 
-
 screen.keypad(1)
 curses.curs_set(0)
 curses.start_color()
 curses.use_default_colors()
+#if no arguments use these values
 curses.init_pair(1, 0, -1)
 curses.init_pair(2, 3, -1)
 curses.init_pair(3, 0, 3)
+#
 curses.noecho()
 curses.cbreak()
 
 a = 0
 while True:
+    getcolor()
     width = screen.getmaxyx()[1]
     height = screen.getmaxyx()[0]
     origin_x = floor(width / 2) - 34
@@ -100,7 +122,6 @@ while True:
 
     print_time(now)
     print_date(now)
-    time.sleep(1)
 
     screen.timeout(30)
     char = screen.getch()
