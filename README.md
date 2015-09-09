@@ -4,6 +4,15 @@ clockr is a simple curses clock written in python3. Only works in python3 curren
 # Installation
 For Arch Linux users, you can install it in the AUR with the package "clockr"
 
+For other users you can install via pip, 'pip install clockr'
+
+Or by cloning the repo
+
+'https://github.com/shaggytwodope/clockr.git'
+'cd clockr'
+'sudo python setup.py install'
+
+
 # Screenshot
 ![clockr](http://i.imgur.com/gNyIXlX.png)
 
