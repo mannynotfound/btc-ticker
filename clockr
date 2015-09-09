@@ -5,24 +5,28 @@ from math import floor
 from datetime import datetime as date
 import sys
 import time
+import argparse
 
-for arg in sys.argv:
-    twentyfourargs = arg
-    dateargs = arg
-    aboutargs = arg
-    helpargs = arg
-    colorargs = arg
 
-if helpargs in ["help", "-h", "-help", "-H", "--h"]:
-    print( "usage: -h shows this help, pressing q exits. \n" \
-              "-red, -white, -blue")
-    sys.exit()
 
-if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
-    print("about: small clock tool made by shaggytwodope " \
-            "with some help from /r/linuxmasterrace irc\n"\
-            "thanks to n473, thimoteus,  AWindowsKrill, timawesomeness, and somehow R0flcopt3r.")
-    sys.exit()
+def get_args():
+    parser = argparse.ArgumentParser(
+        description='Simple Commandline Clock',
+        epilog="Add thanks here + credits")
+    parser.add_argument(
+        '-c', '--color', type=str, help='color name', required=False)
+    parser.add_argument(
+        '-n', '--nodate', action='store_true', help='no date', required=False)
+    parser.add_argument(
+        '-t', '--twentyfourhours', action='store_true', help='Keyword search', required=False, default=None)
+    args = parser.parse_args()
+    color = args.color
+    nodate = args.nodate
+    twentyfourhourarg = args.twentyfourhours
+    return color, nodate, twentyfourhourarg
+
+color, nodate, twentyfourhourarg = get_args()
+
 
 screen          = curses.initscr()
 last_width      = 0
@@ -44,31 +48,31 @@ maincolor = 0
 bgcolor = -1
 
 def getcolor():
-    if colorargs in ["-red"]:
+    if color in  ["red"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 1, -1)
         curses.init_pair(3, 0, 1)
-    if colorargs in ["-green"]:
+    if color in ["green"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 2, -1)
         curses.init_pair(3, 0, 2)
-    if colorargs in ["-yellow"]:
+    if color in ["yellow"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 3, -1)
         curses.init_pair(3, 0, 3)
-    elif colorargs in ["-blue"]:
+    if color in ["blue"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 4, -1)
         curses.init_pair(3, 0, 4)
-    if colorargs in ["-magenta"]:
+    if color in ["magenta"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 5, -1)
         curses.init_pair(3, 0, 5)
-    if colorargs in ["-cyan"]:
+    if color in ["cyan"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 6, -1)
         curses.init_pair(3, 0, 6)
-    elif colorargs in ["-white"]:
+    if color in ["white"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 7, -1)
         curses.init_pair(3, 0, 7)
@@ -82,7 +86,7 @@ def addstr(y, x, string, color):
     except: return
 
 def print_time(now):
-    twentyfourhours = twentyfourargs in ["twentyfour", "-tf", "-twentyfour", "--tf", "--twentyfour"]
+    twentyfourhours = twentyfourhourarg
     time_line = now.strftime("%H:%M:%S" if twentyfourhours else "%I:%M:%S")
     time_array = ["" for i in range(0, 7)]
 
@@ -105,7 +109,7 @@ def print_time(now):
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
     date_line = now.strftime("%B %d, %Y")
-    if dateargs in ["nodate", "-nd", "-nodate", "-nd", "--nd"]:
+    if nodate:
         pass
     else:
         addstr(8, 0, day_line, curses.color_pair(3))
