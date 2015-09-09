@@ -8,16 +8,18 @@ import sys
 
 
 for arg in sys.argv:
-		aboutargs = arg
-		helpargs = arg
+    aboutargs = arg
+    helpargs = arg
 
 if helpargs in ["help","-h","-help","-H","--h"]:
-	print( "usage: -h shows this help, pressing q exits.")
-	sys.exit()
+    print( "usage: -h shows this help, pressing q exits.")
+    sys.exit()
 
-if aboutargs in ["about","-a","-about","-A","--a"]:
-	print( "about: small clock tool made by shaggytwodope")
-	sys.exit()
+if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
+    print("about: small clock tool made by shaggytwodope " \
+            "with some help from /r/linuxmasterrace irc\n"\
+            "thanks to n473, thimoteus,  AWindowsKrill, timawesomeness, and somehow R0flcopt3r.")
+    sys.exit()
 
 screen          = curses.initscr()
 last_width      = 0
