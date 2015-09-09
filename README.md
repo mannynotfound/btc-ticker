@@ -8,7 +8,7 @@ For Arch Linux users, you can install it in the AUR with the package "clockr"
 ![clockr](http://i.imgur.com/gNyIXlX.png)
 
 # options
-    help, -h, -help, -H, --h                       Prints help text.
+    -h, --help                                     Prints help text.
     -n --nodate                                    Doesn't print the date in the clock.
     -c --color                                     Changes color of clock respectively.
     Available color options are 
