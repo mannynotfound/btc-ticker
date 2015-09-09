@@ -5,6 +5,7 @@ import curses
 from math import floor
 from datetime import datetime as date
 import sys
+import time
 
 for arg in sys.argv:
     dateargs = arg
@@ -24,12 +25,10 @@ if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
     sys.exit()
 
 
-
-
 screen          = curses.initscr()
 last_width      = 0
 last_height     = 0
-glyph               = {
+glyph           = {
     '0': ["  #####   ", " ##   ##  ", "##     ## ", "##     ## ", "##     ## ", " ##   ##  ", "  #####   "],
     '1': ["    ##    ", "  ####    ", "    ##    ", "    ##    ", "    ##    ", "    ##    ", "  ######  "],
     '2': [" #######  ", "##     ## ", "       ## ", " #######  ", "##        ", "##        ", "######### "],
@@ -65,7 +64,6 @@ def addstr(y, x, string, color):
                 screen.refresh()
     except: return
 
-
 def print_time(now):
     time_line = now.strftime("%I:%M:%S")
     time_array = ["" for i in range(0, 7)]
@@ -84,7 +82,6 @@ def print_time(now):
 
     addstr(6, len(time_array[0]), now.strftime("%p"),
             curses.color_pair(2) | curses.A_BOLD)
-
 
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
