@@ -24,7 +24,7 @@ For manual installation, clone the repository, cd into it and run
     green, yellow, cyan, white 
     -t --twentyfourhours                           Prints the time in 24-hour format.
 
-# Questions that we think you might have.
+# FAQ
 Q: Can you add [feature]? When will [bug] be fixed?
 
 A: This project is completely run by volunteers and will most likely never be 100% bug-free as developers are humans too. You can help out yourself, though, by submitting a bug report!
