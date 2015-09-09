@@ -5,7 +5,7 @@ import curses
 from math import floor
 from datetime import datetime as date
 import sys
-
+import time
 
 for arg in sys.argv:
     dateargs = arg
@@ -100,6 +100,7 @@ while True:
 
     print_time(now)
     print_date(now)
+    time.sleep(1)
 
     screen.timeout(30)
     char = screen.getch()
