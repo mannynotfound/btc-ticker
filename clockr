@@ -17,6 +17,9 @@ def get_args():
         epilog="Made with help from /r/linuxmasterrace irc, thanks to n473,\
                 thimoteus, AWindowsKrill, timawesomeness, calexil, tirkaz \
                 and somehow R0flcopt3r. With additional help from bdalenoord, and Noremac201.")
+    parser.add_argument('-V', '-v', '--version', 
+                    action='version',                    
+                    version='%(prog)s (version 0.4)')
     parser.add_argument(
         '-c', '--color', type=str, help='Changes color of clock respectively', required=False)
     parser.add_argument(
