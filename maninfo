@@ -6,3 +6,6 @@ Report bugs to https://github.com/shaggytwodope/clockr/issues
 
 [COPYRIGHT]
 MIT License
+
+[EXAMPLES]
+clockr -n -c blue would show no date, and main color set to blue.
