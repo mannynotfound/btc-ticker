@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
 import curses
 from math import floor
 from datetime import datetime as date
@@ -23,9 +22,6 @@ if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
             "with some help from /r/linuxmasterrace irc\n"\
             "thanks to n473, thimoteus,  AWindowsKrill, timawesomeness, and somehow R0flcopt3r.")
     sys.exit()
-
-
-
 
 screen          = curses.initscr()
 last_width      = 0
@@ -77,12 +73,12 @@ def getcolor():
         curses.init_pair(3, 0, 7)
     else:
         pass
+
 def addstr(y, x, string, color):
     try:
                 screen.addstr( origin_y + y, origin_x + x, string, color)
                 screen.refresh()
     except: return
-
 
 def print_time(now):
     time_line = now.strftime("%I:%M:%S")
@@ -102,7 +98,6 @@ def print_time(now):
 
     addstr(6, len(time_array[0]), now.strftime("%p"),
             curses.color_pair(2) | curses.A_BOLD)
-
 
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
