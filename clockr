@@ -25,6 +25,8 @@ if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
     sys.exit()
 
 
+
+
 screen          = curses.initscr()
 last_width      = 0
 last_height     = 0
@@ -43,19 +45,36 @@ glyph           = {
 }
 maincolor = 0
 bgcolor = -1
+
 def getcolor():
-    if colorargs in ["-white"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 7, -1)
-        curses.init_pair(3, 0, 7)
-    elif colorargs in ["-red"]:
+    if colorargs in ["-red"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 1, -1)
         curses.init_pair(3, 0, 1)
+    if colorargs in ["-green"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 2, -1)
+        curses.init_pair(3, 0, 2)
+    if colorargs in ["-yellow"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 3, -1)
+        curses.init_pair(3, 0, 3)
     elif colorargs in ["-blue"]:
         curses.init_pair(1, 0, -1)
         curses.init_pair(2, 4, -1)
         curses.init_pair(3, 0, 4)
+    if colorargs in ["-magenta"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 5, -1)
+        curses.init_pair(3, 0, 5)
+    if colorargs in ["-cyan"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 6, -1)
+        curses.init_pair(3, 0, 6)
+    elif colorargs in ["-white"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 7, -1)
+        curses.init_pair(3, 0, 7)
     else:
         pass
 def addstr(y, x, string, color):
@@ -63,6 +82,7 @@ def addstr(y, x, string, color):
                 screen.addstr( origin_y + y, origin_x + x, string, color)
                 screen.refresh()
     except: return
+
 
 def print_time(now):
     time_line = now.strftime("%I:%M:%S")
@@ -82,6 +102,7 @@ def print_time(now):
 
     addstr(6, len(time_array[0]), now.strftime("%p"),
             curses.color_pair(2) | curses.A_BOLD)
+
 
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
