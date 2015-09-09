@@ -7,6 +7,7 @@ import sys
 import time
 
 for arg in sys.argv:
+    twentyfourargs = arg
     dateargs = arg
     aboutargs = arg
     helpargs = arg
@@ -81,7 +82,8 @@ def addstr(y, x, string, color):
     except: return
 
 def print_time(now):
-    time_line = now.strftime("%I:%M:%S")
+    twentyfourhours = twentyfourargs in ["twentyfour", "-tf", "-twentyfour", "--tf", "--twentyfour"]
+    time_line = now.strftime("%H:%M:%S" if twentyfourhours else "%I:%M:%S")
     time_array = ["" for i in range(0, 7)]
 
     for char in time_line:
@@ -96,8 +98,9 @@ def print_time(now):
             addstr(y, x, " ",
                     curses.color_pair(color))
 
-    addstr(6, len(time_array[0]), now.strftime("%p"),
-            curses.color_pair(2) | curses.A_BOLD)
+    if not twentyfourhours:
+        addstr(6, len(time_array[0]), now.strftime("%p"),
+                curses.color_pair(2) | curses.A_BOLD)
 
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
