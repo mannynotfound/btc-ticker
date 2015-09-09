@@ -11,7 +11,7 @@ for arg in sys.argv:
     aboutargs = arg
     helpargs = arg
 
-if helpargs in ["help","-h","-help","-H","--h"]:
+if helpargs in ["help", "-h", "-help", "-H", "--h"]:
     print( "usage: -h shows this help, pressing q exits.")
     sys.exit()
 
@@ -44,9 +44,10 @@ def addstr(y, x, string, color):
                 screen.refresh()
     except: return
 
+
 def print_time(now):
-    time_line   = now.strftime("%I:%M:%S")
-    time_array  = ["" for i in range(0,7)]
+    time_line = now.strftime("%I:%M:%S")
+    time_array = ["" for i in range(0, 7)]
 
     for char in time_line:
         char_array = glyph[char]
@@ -63,9 +64,10 @@ def print_time(now):
     addstr(6, len(time_array[0]), now.strftime("%p"),
             curses.color_pair(2) | curses.A_BOLD)
 
+
 def print_date(now):
-    day_line        = now.strftime("%A").center(11," ")
-    date_line   = now.strftime("%B %d, %Y")
+    day_line = now.strftime("%A").center(11, " ")
+    date_line = now.strftime("%B %d, %Y")
 
     addstr(8, 0, day_line, curses.color_pair(3))
     addstr(8, len(day_line) + 40, date_line, curses.color_pair(2) | curses.A_BOLD)
@@ -85,9 +87,9 @@ a = 0
 while True:
     width = screen.getmaxyx()[1]
     height = screen.getmaxyx()[0]
-    origin_x    = floor(width / 2) - 34
-    origin_y    = floor(height / 2) - 4
-    now     = date.now()
+    origin_x = floor(width / 2) - 34
+    origin_y = floor(height / 2) - 4
+    now = date.now()
 
     if width != last_width or height != last_height: screen.clear()
     last_width = width
