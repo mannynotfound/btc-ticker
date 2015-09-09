@@ -3,5 +3,5 @@
 *.swp
 dist
 build
-define.egg-info
+clockr.egg-info
 *.swo
