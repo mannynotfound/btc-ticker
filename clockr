@@ -12,14 +12,16 @@ import signal
 
 def get_args():
     parser = argparse.ArgumentParser(
-        description='Simple Commandline Clock',
-        epilog="Add thanks here + credits")
+        description='Simple Curses Clock Written in Python by ShaggyTwoDope.',
+        epilog="Made with help from /r/linuxmasterrace irc , thanks to n473,\
+                thimoteus, AWindowsKrill, timawesomeness, and somehow R0flcopt3r.\
+                With addition help from bdalenoord, and Noremac201.")
     parser.add_argument(
-        '-c', '--color', type=str, help='color name', required=False)
+        '-c', '--color', type=str, help='Changes color of clock respectively', required=False)
     parser.add_argument(
-        '-n', '--nodate', action='store_true', help='no date', required=False)
+        '-n', '--nodate', action='store_true', help='Does not print the date in the clock', required=False)
     parser.add_argument(
-        '-t', '--twentyfourhours', action='store_true', help='Twenty four hour time', required=False, default=None)
+        '-t', '--twentyfourhours', action='store_true', help='Prints the time in 24-hour format', required=False, default=None)
     args = parser.parse_args()
     color = args.color
     nodate = args.nodate
