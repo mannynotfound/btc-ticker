@@ -6,6 +6,7 @@ from math import floor
 from datetime import datetime as date
 import sys
 import time
+import signal
 
 for arg in sys.argv:
     twentyfourargs = arg
@@ -79,6 +80,10 @@ def print_date(now):
         addstr(8, len(day_line) + 40, date_line, curses.color_pair(2) | curses.A_BOLD)
 
 
+def gracefull_exit(signal = None, frame = None):
+    curses.endwin()
+    sys.exit()
+
 screen.keypad(1)
 curses.curs_set(0)
 curses.start_color()
@@ -88,6 +93,10 @@ curses.init_pair(2, 3, -1)
 curses.init_pair(3, 0, 3)
 curses.noecho()
 curses.cbreak()
+
+# Register signal handlers for gracefull exit on for instance CTRL-C
+signal.signal(signal.SIGINT, gracefull_exit)
+signal.signal(signal.SIGTERM, gracefull_exit)
 
 a = 0
 while True:
@@ -109,4 +118,4 @@ while True:
     char = screen.getch()
     if char == 113: break
 
-curses.endwin()
+gracefull_exit()
