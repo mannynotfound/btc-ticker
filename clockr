@@ -5,15 +5,8 @@ from math import floor
 from datetime import datetime as date
 import sys
 import time
-<<<<<<< HEAD
-<<<<<<< HEAD
 import argparse
-=======
 import signal
->>>>>>> 9417f5526748b24ba1e3fb928ffd93bc33ac9b70
-=======
-import signal
->>>>>>> 9417f5526748b24ba1e3fb928ffd93bc33ac9b70
 
 
 
