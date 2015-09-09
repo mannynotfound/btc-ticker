@@ -2,19 +2,9 @@
 clockr is a simple curses clock written in python3. Only works in python3 currently, no plans for python2.
 
 # Installation
-For Arch Linux users, you can install it in the AUR with the package "clockr"
-
-For other users you can install via pip
-
-`pip install clockr`
-
-Or by cloning the repo
-
-`git clone https://github.com/shaggytwodope/clockr.git`
-
-`cd clockr`
-
-`sudo python setup.py install`
+* Arch Linux: clockr in the AUR
+* pip: clockr
+* Manual install: clone the repository and run python setup.py install as root.
 
 
 # Screenshot
@@ -31,11 +21,6 @@ Or by cloning the repo
     -t --twentyfourhours                           Prints the time in 24-hour format.
 
 # Questions that we think you might have.
-Q: Why isn't X working?
+Q: Can you add [feature]? When will [bug] be fixed?
 
-A: Because ShaggyTwoDope wasn't told about it.
-
-
-Q: Help?
-
-A: Post an issue, or message someone, don't just sit reading this.
+A: This project is completely run by volunteers and will most likely never be 100% bug-free as developers are humans too. You can help out yourself, though, by submitting a bug report!
