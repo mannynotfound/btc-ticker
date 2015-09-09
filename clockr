@@ -132,8 +132,8 @@ curses.start_color()
 curses.use_default_colors()
 #if no arguments use these values
 curses.init_pair(1, 0, -1)
-curses.init_pair(2, 3, -1)
-curses.init_pair(3, 0, 3)
+curses.init_pair(2, 5, -1)
+curses.init_pair(3, 0, 5)
 #
 curses.noecho()
 curses.cbreak()
