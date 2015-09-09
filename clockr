@@ -122,6 +122,7 @@ while True:
 
     print_time(now)
     print_date(now)
+    time.sleep(1)
 
     screen.timeout(30)
     char = screen.getch()
