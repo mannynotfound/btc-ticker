@@ -1,6 +1,5 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
 import curses
 from math import floor
 from datetime import datetime as date
@@ -13,9 +12,11 @@ for arg in sys.argv:
     dateargs = arg
     aboutargs = arg
     helpargs = arg
+    colorargs = arg
 
 if helpargs in ["help", "-h", "-help", "-H", "--h"]:
-    print("usage: -h shows this help, -nd disables date line , pressing q exits.")
+    print( "usage: -h shows this help, pressing q exits. \n" \
+              "-red, -white, -blue")
     sys.exit()
 
 if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
@@ -27,7 +28,7 @@ if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
 screen          = curses.initscr()
 last_width      = 0
 last_height     = 0
-glyph               = {
+glyph           = {
     '0': ["  #####   ", " ##   ##  ", "##     ## ", "##     ## ", "##     ## ", " ##   ##  ", "  #####   "],
     '1': ["    ##    ", "  ####    ", "    ##    ", "    ##    ", "    ##    ", "    ##    ", "  ######  "],
     '2': [" #######  ", "##     ## ", "       ## ", " #######  ", "##        ", "##        ", "######### "],
@@ -40,13 +41,46 @@ glyph               = {
     '9': [" #######  ", "##     ## ", "##     ## ", " ######## ", "       ## ", "##     ## ", " #######  "],
     ':': ["   ", "   ", " # ", "   ", " # ", "   ", "   "]
 }
+maincolor = 0
+bgcolor = -1
+
+def getcolor():
+    if colorargs in ["-red"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 1, -1)
+        curses.init_pair(3, 0, 1)
+    if colorargs in ["-green"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 2, -1)
+        curses.init_pair(3, 0, 2)
+    if colorargs in ["-yellow"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 3, -1)
+        curses.init_pair(3, 0, 3)
+    elif colorargs in ["-blue"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 4, -1)
+        curses.init_pair(3, 0, 4)
+    if colorargs in ["-magenta"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 5, -1)
+        curses.init_pair(3, 0, 5)
+    if colorargs in ["-cyan"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 6, -1)
+        curses.init_pair(3, 0, 6)
+    elif colorargs in ["-white"]:
+        curses.init_pair(1, 0, -1)
+        curses.init_pair(2, 7, -1)
+        curses.init_pair(3, 0, 7)
+    else:
+        pass
 
 def addstr(y, x, string, color):
     try:
                 screen.addstr( origin_y + y, origin_x + x, string, color)
                 screen.refresh()
     except: return
-
 
 def print_time(now):
     twentyfourhours = twentyfourargs in ["twentyfour", "-tf", "-twentyfour", "--tf", "--twentyfour"]
@@ -69,7 +103,6 @@ def print_time(now):
         addstr(6, len(time_array[0]), now.strftime("%p"),
                 curses.color_pair(2) | curses.A_BOLD)
 
-
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
     date_line = now.strftime("%B %d, %Y")
@@ -79,7 +112,6 @@ def print_date(now):
         addstr(8, 0, day_line, curses.color_pair(3))
         addstr(8, len(day_line) + 40, date_line, curses.color_pair(2) | curses.A_BOLD)
 
-
 def gracefull_exit(signal = None, frame = None):
     curses.endwin()
     sys.exit()
@@ -88,9 +120,11 @@ screen.keypad(1)
 curses.curs_set(0)
 curses.start_color()
 curses.use_default_colors()
+#if no arguments use these values
 curses.init_pair(1, 0, -1)
 curses.init_pair(2, 3, -1)
 curses.init_pair(3, 0, 3)
+#
 curses.noecho()
 curses.cbreak()
 
@@ -100,6 +134,7 @@ signal.signal(signal.SIGTERM, gracefull_exit)
 
 a = 0
 while True:
+    getcolor()
     width = screen.getmaxyx()[1]
     height = screen.getmaxyx()[0]
     origin_x = floor(width / 2) - 34
