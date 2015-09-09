@@ -15,7 +15,10 @@ For Arch Linux users, you can install it in the AUR with the package "clockr"
 
 # Questions that we think you might have.
 Q: Why isn't X working?
+
 A: Because ShaggyTwoDope wasn't told about it.
 
+
 Q: Help?
+
 A: Post an issue, or message someone, don't just sit reading this.
