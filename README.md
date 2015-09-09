@@ -8,13 +8,14 @@ For Arch Linux users, you can install it in the AUR with the package "clockr"
 ![clockr](http://i.imgur.com/gNyIXlX.png)
 
 # options
+    press q to exit
     -h, --help                                     Prints help text.
     -n --nodate                                    Doesn't print the date in the clock.
     -c --color                                     Changes color of clock respectively.
     Available color options are 
     red, white, blue, magenta,
     green, yellow, cyan, white 
-    -t --twentyfourhours                           Prints the time in 24-hour format
+    -t --twentyfourhours                           Prints the time in 24-hour format.
 
 # Questions that we think you might have.
 Q: Why isn't X working?

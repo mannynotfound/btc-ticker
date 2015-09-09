@@ -12,7 +12,8 @@ import signal
 
 def get_args():
     parser = argparse.ArgumentParser(
-        description='Simple Curses Clock Written in Python by ShaggyTwoDope.',
+        description='Simple Curses Clock Written in Python by ShaggyTwoDope.\n\
+                Press q to exit.',
         epilog="Made with help from /r/linuxmasterrace irc, thanks to n473,\
                 thimoteus, AWindowsKrill, timawesomeness, calexil, tirkaz \
                 and somehow R0flcopt3r. With additional help from bdalenoord, and Noremac201.")
