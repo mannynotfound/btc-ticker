@@ -8,6 +8,7 @@ import sys
 
 
 for arg in sys.argv:
+    dateargs = arg
     aboutargs = arg
     helpargs = arg
 
@@ -68,9 +69,11 @@ def print_time(now):
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
     date_line = now.strftime("%B %d, %Y")
-
-    addstr(8, 0, day_line, curses.color_pair(3))
-    addstr(8, len(day_line) + 40, date_line, curses.color_pair(2) | curses.A_BOLD)
+    if dateargs in ["nodate", "-nd", "-nodate", "-nd", "--nd"]:
+        pass
+    else:
+        addstr(8, 0, day_line, curses.color_pair(3))
+        addstr(8, len(day_line) + 40, date_line, curses.color_pair(2) | curses.A_BOLD)
 
 
 screen.keypad(1)
