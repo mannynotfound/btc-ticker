@@ -11,6 +11,7 @@ For Arch Linux users, you can install it in the AUR with the package "clockr"
     help, -h, -help, -H, --h                       Prints this help text.
     about, -a, -about, -A, --a                     Prtins the about text, 
     nodate, -nd, -nodate, -nd, --nd                Doesn't print the date in the clock.
+    twentyfour, -tf, -twentyfour, --tf             Prints the time in 24-hour format
   
 
 # Questions that we think you might have.
