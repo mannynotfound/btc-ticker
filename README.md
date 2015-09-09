@@ -1,5 +1,5 @@
 # clockr
-clockr is a simple curses clock written in python.
+clockr is a simple curses clock written in python3. Only works in python3 currently, no plans for python2.
 
 # Installation
 For Arch Linux users, you can install it in the AUR with the package "clockr"
