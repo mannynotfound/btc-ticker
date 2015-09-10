@@ -23,16 +23,19 @@ def get_args():
     parser.add_argument(
         '-c', '--color', type=str, help='changes color of the clock.', required=False)
     parser.add_argument(
+        '-d', '--dateformat', type=str, help='changes the format in which the date is printed, see \'man date\' for support on formats. Not to be combined with the \'--nodate\'-argument.', required=False, default=None)
+    parser.add_argument(
         '-n', '--nodate', action='store_true', help='does not print the date in the clock', required=False)
     parser.add_argument(
         '-t', '--twentyfourhours', action='store_true', help='prints the time in 24-hour format', required=False, default=None)
     args = parser.parse_args()
     color = args.color
+    dateformat = args.dateformat
     nodate = args.nodate
     twentyfourhourarg = args.twentyfourhours
-    return color, nodate, twentyfourhourarg
+    return color, dateformat, nodate, twentyfourhourarg
 
-color, nodate, twentyfourhourarg = get_args()
+color, dateformat, nodate, twentyfourhourarg = get_args()
 
 
 screen          = curses.initscr()
@@ -115,7 +118,7 @@ def print_time(now):
 
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
-    date_line = now.strftime("%B %d, %Y")
+    date_line = now.strftime("%B %d, %Y") if not dateformat else now.strftime(dateformat)
     if nodate:
         pass
     else:
