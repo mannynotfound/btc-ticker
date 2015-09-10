@@ -109,7 +109,10 @@ def print_time(now):
         for x in range(0, len(time_array[y])):
             char = time_array[y][x]
             color = 1 if char == " " else 3
-            addstr(y, x, " ",
+
+            # If we run in 24-hour mode, the AM/PM will be omitted. This then leads to a misaligned clock, thus
+            # we need to move the clock to the right 2 columns
+            addstr(y, x if not twentyfourhours else x + 2, " ",
                     curses.color_pair(color))
 
     if not twentyfourhours:
