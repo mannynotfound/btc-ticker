@@ -23,6 +23,9 @@ For manual installation, clone the repository, cd into it and run
     red, white, blue, magenta,
     green, yellow, cyan, white 
     -t --twentyfourhours                           Prints the time in 24-hour format.
+    -d --dateformat                                Prints the date in given format, requires 1 argument
+    See 'man date' on how to
+    use custom date formats
 
 # FAQ
 Q: Can you add [feature]? When will [bug] be fixed?
