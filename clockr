@@ -35,7 +35,7 @@ def get_args():
     twentyfourhourarg = args.twentyfourhours
     conflictdate = args.dateformat, args.nodate
     if all(conflictdate):
-        sys.exit('Error can not use nodate option with dateformat')
+        sys.exit('Conflict in options: can not use nodate option with dateformat.')
     return color, dateformat, nodate, twentyfourhourarg
 
 color, dateformat, nodate, twentyfourhourarg = get_args()
@@ -128,7 +128,7 @@ def print_date(now):
     if nodate:
         pass
     else:
-        addstr(8, 0, day_line, curses.color_pair(3))
+        addstr(8, 0, day_line, curses.color_pair(2))
         addstr(8, len(day_line) + 40, date_line, curses.color_pair(2) | curses.A_BOLD)
 
 def gracefull_exit(signal = None, frame = None):
