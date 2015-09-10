@@ -8,4 +8,4 @@ Report bugs to https://github.com/shaggytwodope/clockr/issues
 MIT License
 
 [EXAMPLES]
-clockr -n -c blue would show no date, and main color set to blue.
+clockr --nodate --twentyfourhours --color white would generate a white-colored 24-clock while omitting the date.
