@@ -33,6 +33,9 @@ def get_args():
     dateformat = args.dateformat
     nodate = args.nodate
     twentyfourhourarg = args.twentyfourhours
+    conflictdate = args.dateformat, args.nodate
+    if all(conflictdate):
+        sys.exit('Error can not use nodate option with dateformat')
     return color, dateformat, nodate, twentyfourhourarg
 
 color, dateformat, nodate, twentyfourhourarg = get_args()
