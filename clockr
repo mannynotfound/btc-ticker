@@ -21,7 +21,7 @@ def get_args():
                     action='version',                    
                     version='%(prog)s (version 0.6)')
     parser.add_argument(
-        '-c', '--color', type=str, help='changes color of clock respectively', required=False)
+        '-c', '--color', type=str, help='changes color of the clock.', required=False)
     parser.add_argument(
         '-n', '--nodate', action='store_true', help='does not print the date in the clock', required=False)
     parser.add_argument(
