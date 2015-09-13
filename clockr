@@ -61,34 +61,21 @@ maincolor = 0
 bgcolor = -1
 
 def getcolor():
-    if color in  ["red"]:
+    colors = {
+        "red"       : 1,
+        "green"     : 2,
+        "yellow"    : 3,
+        "blue"      : 4,
+        "magenta"   : 5,
+        "cyan"      : 6,
+        "white"     : 7,
+        "orange"    : 9
+    }
+
+    if color is not None and color.lower() in  colors.keys():
         curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 1, -1)
-        curses.init_pair(3, 0, 1)
-    if color in ["green"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 2, -1)
-        curses.init_pair(3, 0, 2)
-    if color in ["yellow"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 3, -1)
-        curses.init_pair(3, 0, 3)
-    if color in ["blue"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 4, -1)
-        curses.init_pair(3, 0, 4)
-    if color in ["magenta"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 5, -1)
-        curses.init_pair(3, 0, 5)
-    if color in ["cyan"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 6, -1)
-        curses.init_pair(3, 0, 6)
-    if color in ["white"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 7, -1)
-        curses.init_pair(3, 0, 7)
+        curses.init_pair(2, colors[color], -1)
+        curses.init_pair(3, 0, colors[color])
     else:
         pass
 
