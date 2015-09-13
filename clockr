@@ -5,23 +5,40 @@ from math import floor
 from datetime import datetime as date
 import sys
 import time
+import argparse
+import signal
+import random
 
-for arg in sys.argv:
-    dateargs = arg
-    aboutargs = arg
-    helpargs = arg
-    colorargs = arg
+def get_args():
+    parser = argparse.ArgumentParser(
+        description='Simple curses clock written in Python.\n\
+                Press q to exit.',
+        epilog="Made with help from #linuxmasterrace on Snoonet thanks to n473,\
+                thimoteus, AWindowsKrill, timawesomeness, calexil, tirkaz \
+                and somehow R0flcopt3r, with additional help from bdalenoord and Noremac201.")
+    parser.add_argument('-V', '-v', '--version',
+                    action='version',
+                    version='%(prog)s (version 0.8)')
+    parser.add_argument(
+        '-c', '--color', type=str, help='changes color of the clock.', required=False)
+    parser.add_argument(
+        '-d', '--dateformat', type=str, help='changes the format in which the date is printed, see \'man date\' for support on formats. Not to be combined with the \'--nodate\'-argument.', required=False, default=None)
+    parser.add_argument(
+        '-n', '--nodate', action='store_true', help='does not print the date in the clock', required=False)
+    parser.add_argument(
+        '-t', '--twentyfourhours', action='store_true', help='prints the time in 24-hour format', required=False, default=None)
+    args = parser.parse_args()
+    color = args.color
+    dateformat = args.dateformat
+    nodate = args.nodate
+    twentyfourhourarg = args.twentyfourhours
+    conflictdate = args.dateformat, args.nodate
+    if all(conflictdate):
+        sys.exit('Conflict in options: can not use nodate option with dateformat.')
+    return color, dateformat, nodate, twentyfourhourarg
 
-if helpargs in ["help", "-h", "-help", "-H", "--h"]:
-    print( "usage: -h shows this help, pressing q exits. \n" \
-              "-red, -white, -blue")
-    sys.exit()
+color, dateformat, nodate, twentyfourhourarg = get_args()
 
-if aboutargs in ["about", "-a", "-about", "-A", "--a"]:
-    print("about: small clock tool made by shaggytwodope " \
-            "with some help from /r/linuxmasterrace irc\n"\
-            "thanks to n473, thimoteus,  AWindowsKrill, timawesomeness, and somehow R0flcopt3r.")
-    sys.exit()
 
 screen          = curses.initscr()
 last_width      = 0
@@ -43,34 +60,22 @@ maincolor = 0
 bgcolor = -1
 
 def getcolor():
-    if colorargs in ["-red"]:
+    colors = {
+        "red"       : 1,
+        "green"     : 2,
+        "yellow"    : 3,
+        "blue"      : 4,
+        "magenta"   : 5,
+        "cyan"      : 6,
+        "white"     : 7,
+        "orange"    : 9,
+        "random"    : random.randint(1,255)
+    }
+
+    if color is not None and color.lower() in  colors.keys():
         curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 1, -1)
-        curses.init_pair(3, 0, 1)
-    if colorargs in ["-green"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 2, -1)
-        curses.init_pair(3, 0, 2)
-    if colorargs in ["-yellow"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 3, -1)
-        curses.init_pair(3, 0, 3)
-    elif colorargs in ["-blue"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 4, -1)
-        curses.init_pair(3, 0, 4)
-    if colorargs in ["-magenta"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 5, -1)
-        curses.init_pair(3, 0, 5)
-    if colorargs in ["-cyan"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 6, -1)
-        curses.init_pair(3, 0, 6)
-    elif colorargs in ["-white"]:
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, 7, -1)
-        curses.init_pair(3, 0, 7)
+        curses.init_pair(2, colors[color], -1)
+        curses.init_pair(3, 0, colors[color])
     else:
         pass
 
@@ -81,7 +86,8 @@ def addstr(y, x, string, color):
     except: return
 
 def print_time(now):
-    time_line = now.strftime("%I:%M:%S")
+    twentyfourhours = twentyfourhourarg
+    time_line = now.strftime("%H:%M:%S" if twentyfourhours else "%I:%M:%S")
     time_array = ["" for i in range(0, 7)]
 
     for char in time_line:
@@ -93,20 +99,28 @@ def print_time(now):
         for x in range(0, len(time_array[y])):
             char = time_array[y][x]
             color = 1 if char == " " else 3
-            addstr(y, x, " ",
+
+            # If we run in 24-hour mode, the AM/PM will be omitted. This then leads to a misaligned clock, thus
+            # we need to move the clock to the right 2 columns
+            addstr(y, x if not twentyfourhours else x + 2, " ",
                     curses.color_pair(color))
 
-    addstr(6, len(time_array[0]), now.strftime("%p"),
-            curses.color_pair(2) | curses.A_BOLD)
+    if not twentyfourhours:
+        addstr(6, len(time_array[0]), now.strftime("%p"),
+                curses.color_pair(2) | curses.A_BOLD)
 
 def print_date(now):
     day_line = now.strftime("%A").center(11, " ")
-    date_line = now.strftime("%B %d, %Y")
-    if dateargs in ["nodate", "-nd", "-nodate", "-nd", "--nd"]:
+    date_line = now.strftime("%B %d, %Y") if not dateformat else now.strftime(dateformat)
+    if nodate:
         pass
     else:
-        addstr(8, 0, day_line, curses.color_pair(3))
+        addstr(8, 0, day_line, curses.color_pair(2))
         addstr(8, len(day_line) + 40, date_line, curses.color_pair(2) | curses.A_BOLD)
+
+def gracefull_exit(signal = None, frame = None):
+    curses.endwin()
+    sys.exit()
 
 screen.keypad(1)
 curses.curs_set(0)
@@ -114,15 +128,19 @@ curses.start_color()
 curses.use_default_colors()
 #if no arguments use these values
 curses.init_pair(1, 0, -1)
-curses.init_pair(2, 3, -1)
-curses.init_pair(3, 0, 3)
+curses.init_pair(2, 5, -1)
+curses.init_pair(3, 0, 5)
 #
 curses.noecho()
 curses.cbreak()
 
+# Register signal handlers for gracefull exit on for instance CTRL-C
+signal.signal(signal.SIGINT, gracefull_exit)
+signal.signal(signal.SIGTERM, gracefull_exit)
+
 a = 0
+getcolor()
 while True:
-    getcolor()
     width = screen.getmaxyx()[1]
     height = screen.getmaxyx()[0]
     origin_x = floor(width / 2) - 34
@@ -141,4 +159,4 @@ while True:
     char = screen.getch()
     if char == 113: break
 
-curses.endwin()
+gracefull_exit()
