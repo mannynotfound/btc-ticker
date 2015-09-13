@@ -19,7 +19,7 @@ def get_args():
                 and somehow R0flcopt3r, with additional help from bdalenoord and Noremac201.")
     parser.add_argument('-V', '-v', '--version', 
                     action='version',                    
-                    version='%(prog)s (version 0.7)')
+                    version='%(prog)s (version 0.8)')
     parser.add_argument(
         '-c', '--color', type=str, help='changes color of the clock.', required=False)
     parser.add_argument(
