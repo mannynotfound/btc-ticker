@@ -1,0 +1,3 @@
+include *.md
+include clockr.1
+include LICENSE
