@@ -11,4 +11,13 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 
 [EXAMPLES]
-clockr --nodate --twentyfourhours --color white would generate a white-colored 24-clock while omitting the date.
+.BR clockr " " \-\-nodate " " \-\-twentyfourhours " "  \-\-color " " \fIwhite\fR
+
+Will display a white-colored 24-clock while omitting the date.
+
+
+The different colors avaialable are,
+
+\fIwhite\fR \fIred\fR \fIgreen\fR \fIyellow\fR \fIblue\fR \fImagenta\fR \fIcyan\fR \fIorange\fR
+
+And you can also use \fIrandom\fR to chose a random color.
