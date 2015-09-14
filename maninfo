@@ -1,0 +1,14 @@
+[AUTHOR]
+Written by Johnathan "ShaggyTwoDope" Jenkins <twodopeshaggy@gmail.com>, Rolf "pyonium" Don <rolf@pyonium.com>,
+Bas Dalenoord <bdalenoord@gmail.com>
+
+[REPORTING BUGS]
+Report bugs to https://github.com/shaggytwodope/clockr/issues
+
+[COPYRIGHT]
+Copyright \(co Johnathan Jenkins. License: MIT <http://opensource.org/licenses/MIT>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+[EXAMPLES]
+clockr --nodate --twentyfourhours --color white would generate a white-colored 24-clock while omitting the date.
