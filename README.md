@@ -1,4 +1,5 @@
 # clockr
+[![Build Status](https://travis-ci.org/shaggytwodope/clockr.svg)](https://travis-ci.org/shaggytwodope/clockr)
 clockr is a collaborative effort at a simple curses clock written in Python 3.
 
 # Screenshot
