@@ -1,7 +1,7 @@
 try:
-            from setuptools import setup
+    from setuptools import setup
 except ImportError:
-            from distutils.core import setup
+    from distutils.core import setup
 
 setup(name='clockr',
       description='Simple curses clock written in Python',
@@ -11,8 +11,8 @@ setup(name='clockr',
       author_email='twodopeshaggy@gmail.com',
       url='https://github.com/shaggytwodope/clockr',
       data_files=[
-      ("share/man/man1", ["clockr.1"]),
-      ("share/doc/clockr", ["LICENSE"])
+          ("share/man/man1", ["clockr.1"]),
+          ("share/doc/clockr", ["LICENSE"])
       ],
       scripts=['clockr'],
       classifiers=['Intended Audience :: End Users/Desktop',
