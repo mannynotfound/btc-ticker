@@ -10,6 +10,7 @@ import signal
 import random
 from __version__ import __version__
 
+
 def get_args():
     """get all args"""
     parser = argparse.ArgumentParser(
@@ -20,7 +21,7 @@ def get_args():
                 and somehow R0flcopt3r, with additional help from bdalenoord \
                 and Noremac201.")
     parser.add_argument('-V', '-v', '--version', action='version',
-                        version='%(prog)s ' +__version__)
+                        version='%(prog)s ' + __version__)
     parser.add_argument(
         '-c', '--color', type=str, help='changes color of the clock.',
         required=False)
