@@ -17,7 +17,7 @@ setup(name='clockr',
           ("share/doc/clockr", ["LICENSE"])
       ],
       packages=['clockr'],
-      entry_points={'console_scripts': ['clockr=clockr.__main__:main']},
+      entry_points={'console_scripts': ['clockr=clockr.clockr:main']},
       classifiers=['Intended Audience :: End Users/Desktop',
                    'Programming Language :: Python :: 3'],
       license='MIT')
