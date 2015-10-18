@@ -42,8 +42,10 @@ color, dateformat, nodate, twentyfourhourarg = get_args()
 
 
 screen          = curses.initscr()
-last_width      = 0
-last_height     = 0
+width = 0
+height = 0
+origin_x = 0
+origin_y = 0
 glyph           = {
     '0': ["  #####   ", " ##   ##  ", "##     ## ", "##     ## ", "##     ## ", " ##   ##  ", "  #####   "],
     '1': ["    ##    ", "  ####    ", "    ##    ", "    ##    ", "    ##    ", "    ##    ", "  ######  "],
@@ -121,6 +123,14 @@ def gracefull_exit(signal = None, frame = None):
     curses.endwin()
     sys.exit()
 
+def win_resize():
+    global width, height, origin_x, origin_y, last_t
+    screen.clear()
+    height, width = screen.getmaxyx()
+    origin_x = floor(width / 2) - 34
+    origin_y = floor(height / 2) - 4
+    last_t = None
+
 screen.keypad(1)
 curses.curs_set(0)
 curses.start_color()
@@ -132,6 +142,7 @@ curses.init_pair(3, 0, 5)
 #
 curses.noecho()
 curses.cbreak()
+screen.timeout(0)
 
 # Register signal handlers for gracefull exit on for instance CTRL-C
 signal.signal(signal.SIGINT, gracefull_exit)
@@ -140,23 +151,20 @@ signal.signal(signal.SIGTERM, gracefull_exit)
 
 a = 0
 getcolor()
+win_resize()
 while True:
-    width = screen.getmaxyx()[1]
-    height = screen.getmaxyx()[0]
-    origin_x = floor(width / 2) - 34
-    origin_y = floor(height / 2) - 4
-    now = date.now()
-
-    if width != last_width or height != last_height: screen.clear()
-    last_width = width
-    last_height = height
-
-    print_time(now)
-    print_date(now)
-    time.sleep(1)
-
-    screen.timeout(30)
     char = screen.getch()
-    if char == 113: break
+    if char == curses.KEY_RESIZE:
+        win_resize()
+    elif char in (ord('q'), ord('Q')):
+        break
+
+    now = date.now()
+    if last_t and now.timetuple()[:6] != last_t.timetuple()[:6]:
+      print_time(now)
+      print_date(now)
+
+    time.sleep(0.01)
+    last_t = now
 
 gracefull_exit()
