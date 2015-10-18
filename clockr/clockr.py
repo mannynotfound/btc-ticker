@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-"load all needed modules"
 # -*- coding: utf-8 -*-
 import curses
 from math import floor
@@ -12,7 +11,7 @@ import random
 
 
 def get_args():
-    "get all args"
+    """get all args"""
     parser = argparse.ArgumentParser(
         description='Simple curses clock written in Python.\n\
                 Press q to exit.',
@@ -81,7 +80,7 @@ glyph = {
 
 
 def getcolor():
-    "color selection"
+    """color selection"""
     colors = {
         "red": 1,
         "green": 2,
@@ -111,7 +110,7 @@ def addstr(y, x, string, color):
 
 
 def print_time(now):
-    "main time function"
+    """main time function"""
     twentyfourhours = twentyfourhourarg
     time_line = now.strftime("%H:%M:%S" if twentyfourhours else "%I:%M:%S")
     time_array = ["" for i in range(0, 7)]
@@ -138,7 +137,7 @@ def print_time(now):
 
 
 def print_date(now):
-    "main date function"
+    """main date function"""
     day_line = now.strftime("%A").center(11, " ")
     date_line = now.strftime("%B %d, %Y") if not dateformat \
         else now.strftime(dateformat)
@@ -151,13 +150,13 @@ def print_date(now):
 
 
 def gracefull_exit(signal=None):
-    "exit with grace, prevents a messed up terminal"
+    """exit with grace, prevents a messed up terminal"""
     curses.endwin()
     sys.exit()
 
 
 def win_resize():
-    "window resize function"
+    """window resize function"""
     global width, height, origin_x, origin_y, last_t
     screen.clear()
     height, width = screen.getmaxyx()
@@ -183,7 +182,7 @@ signal.signal(signal.SIGTERM, gracefull_exit)
 
 
 def main():
-    "lets run this thing"
+    """lets run this thing"""
 a = 0
 getcolor()
 win_resize()
