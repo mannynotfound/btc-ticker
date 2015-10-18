@@ -3,6 +3,10 @@
 
 clockr is a collaborative effort at a simple curses clock written in Python 3.
 
+#Reviews
+[Video by Yu-Jie Lin](https://www.youtube.com/watch?v=P3rv3rS40Ls)
+    * A harsh critique, but the video nicely shows clockr.
+
 # Screenshot
 ![clockr](http://i.imgur.com/gNyIXlX.png)
 
