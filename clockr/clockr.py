@@ -182,6 +182,8 @@ signal.signal(signal.SIGINT, gracefull_exit)
 signal.signal(signal.SIGTERM, gracefull_exit)
 
 
+def main():
+    "lets run this thing"
 a = 0
 getcolor()
 win_resize()
@@ -201,3 +203,7 @@ while True:
     last_t = now
 
 gracefull_exit()
+
+
+if __name__ == '__main__':
+    main()
