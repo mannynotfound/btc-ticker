@@ -1,3 +1,4 @@
+from version import __version__ as version
 try:
     from setuptools import setup
 except ImportError:
@@ -6,7 +7,7 @@ except ImportError:
 setup(name='clockr',
       description='Simple curses clock written in Python',
       long_description=open('README.md').read(),
-      version='0.9',
+      version=version,
       author='Johnathan "ShaggyTwoDope" Jenkins',
       author_email='twodopeshaggy@gmail.com',
       url='https://github.com/shaggytwodope/clockr',

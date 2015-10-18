@@ -8,7 +8,7 @@ import time
 import argparse
 import signal
 import random
-
+from __version__ import __version__
 
 def get_args():
     """get all args"""
@@ -20,7 +20,7 @@ def get_args():
                 and somehow R0flcopt3r, with additional help from bdalenoord \
                 and Noremac201.")
     parser.add_argument('-V', '-v', '--version', action='version',
-                        version='%(prog)s (version 0.9)')
+                        version='%(prog)s ' +__version__)
     parser.add_argument(
         '-c', '--color', type=str, help='changes color of the clock.',
         required=False)
@@ -176,7 +176,7 @@ curses.noecho()
 curses.cbreak()
 screen.timeout(0)
 
-# Register signal handlers for gracefull exit on for instance CTRL-C
+# Register signal handlers for graceful exit on for instance CTRL-C
 signal.signal(signal.SIGINT, gracefull_exit)
 signal.signal(signal.SIGTERM, gracefull_exit)
 
