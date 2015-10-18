@@ -124,11 +124,12 @@ def gracefull_exit(signal = None, frame = None):
     sys.exit()
 
 def win_resize():
-    global width, height, origin_x, origin_y
+    global width, height, origin_x, origin_y, last_t
     screen.clear()
     height, width = screen.getmaxyx()
     origin_x = floor(width / 2) - 34
     origin_y = floor(height / 2) - 4
+    last_t = None
 
 screen.keypad(1)
 curses.curs_set(0)
@@ -159,9 +160,11 @@ while True:
         break
 
     now = date.now()
+    if last_t and now.timetuple()[:6] != last_t.timetuple()[:6]:
+      print_time(now)
+      print_date(now)
 
-    print_time(now)
-    print_date(now)
-    time.sleep(1)
+    time.sleep(0.01)
+    last_t = now
 
 gracefull_exit()
