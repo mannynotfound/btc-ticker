@@ -2,7 +2,7 @@ import os
 import pytest
 
 
-EXPECTED_FILES_PYTHON = ('__init__.py', 'README.md', 'LICENSE')
+EXPECTED_FILES_PYTHON = ('__init__.py', 'README.rst', 'LICENSE')
 
 # Footprints folders
 footprints_folder = 'footprints'
