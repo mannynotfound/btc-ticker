@@ -96,8 +96,9 @@ R0flcopt3r, with additional help from bdalenoord and Noremac201.
 
 .. |Build Status| image:: https://travis-ci.org/shaggytwodope/clockr.svg
    :target: https://travis-ci.org/shaggytwodope/clockr
+   :alt: Build status
 
-.. |python| image:: https://img.shields.io/badge/python-2.7%2C%203.5-blue.svg?style=flat-square
+.. |python| image:: https://img.shields.io/badge/python-3.5-blue.svg?style=flat-square
     :target: https://pypi.python.org/pypi/clockr/
     :alt: Supported Python versions
 
