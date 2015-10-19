@@ -98,14 +98,14 @@ R0flcopt3r, with additional help from bdalenoord and Noremac201.
    :target: https://travis-ci.org/shaggytwodope/clockr
    :alt: Build status
 
-.. |python| image:: https://img.shields.io/badge/python-3.5-blue.svg?style=flat-square
+.. |python| image:: https://img.shields.io/badge/python-3.5-blue.svg?style=flat
     :target: https://pypi.python.org/pypi/clockr/
     :alt: Supported Python versions
 
-.. |pypi| image:: https://img.shields.io/pypi/v/clockr.svg?label=version&style=flat-square
+.. |pypi| image:: https://img.shields.io/pypi/v/clockr.svg?label=version&style=flat
     :target: https://pypi.python.org/pypi/clockr/
     :alt: Latest Version
 
-.. |downloads| image:: https://img.shields.io/pypi/dm/clockr.svg?period=month&style=flat-square
+.. |downloads| image:: https://img.shields.io/pypi/dm/clockr.svg?period=month&style=flat
     :target: https://pypi.python.org/pypi/clockr/
     :alt: Downloads
