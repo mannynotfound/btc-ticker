@@ -8,7 +8,10 @@ import time
 import argparse
 import signal
 import random
-from .__version__ import __version__
+try:
+    from .__version__ import __version__
+except SystemError:
+    from __version__ import __version__
 
 
 def get_args():
