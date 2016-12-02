@@ -50,6 +50,7 @@ def get_args():
                 nodate option with dateformat.')
     return color, dateformat, nodate, twentyfourhourarg
 
+
 color, dateformat, nodate, twentyfourhourarg = get_args()
 
 
@@ -168,6 +169,7 @@ def win_resize():
     origin_y = floor(height / 2) - 4
     last_t = None
 
+
 screen.keypad(1)
 curses.curs_set(0)
 curses.start_color()
@@ -187,6 +189,8 @@ signal.signal(signal.SIGTERM, gracefull_exit)
 
 def main():
     """lets run this thing"""
+
+
 a = 0
 getcolor()
 win_resize()
