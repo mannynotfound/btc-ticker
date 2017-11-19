@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import curses
 from math import floor
@@ -8,6 +8,7 @@ import time
 import argparse
 import signal
 import random
+from exchanges.bitfinex import Bitfinex
 try:
     from .__version__ import __version__
 except SystemError:
@@ -116,14 +117,18 @@ def addstr(y, x, string, color):
 
 def print_time(now):
     """main time function"""
-    twentyfourhours = twentyfourhourarg
-    time_line = now.strftime("%H:%M:%S" if twentyfourhours else "%I:%M:%S")
+    # time_line = now.strftime("%I:%M:%S")
+    price = Bitfinex().get_current_price()
+    time_line = str(int(round(price)))
     time_array = ["" for i in range(0, 7)]
 
     for char in time_line:
         char_array = glyph[char]
         for row in range(0, len(char_array)):
             time_array[row] += char_array[row]
+
+    total_x = 65
+    offset_x = int(round((total_x - len(time_array[0])) / 2))
 
     for y in range(0, len(time_array)):
         for x in range(0, len(time_array[y])):
@@ -133,12 +138,10 @@ def print_time(now):
             # If we run in 24-hour mode, the AM/PM will be omitted.
             # This then leads to a misaligned clock, thus
             # we need to move the clock to the right 2 columns
-            addstr(y, x if not twentyfourhours else x + 2, " ",
-                   curses.color_pair(color))
+            addstr(y, x + offset_x, " ", curses.color_pair(color))
 
-    if not twentyfourhours:
-        addstr(6, len(time_array[0]), now.strftime("%p"),
-               curses.color_pair(2) | curses.A_BOLD)
+    addstr(6, offset_x + len(time_array[0]), 'USD',
+           curses.color_pair(2) | curses.A_BOLD)
 
 
 def print_date(now):
@@ -194,6 +197,10 @@ def main():
 a = 0
 getcolor()
 win_resize()
+now = date.now()
+print_time(now)
+print_date(now)
+
 while True:
     char = screen.getch()
     if char == curses.KEY_RESIZE:
@@ -206,7 +213,7 @@ while True:
         print_time(now)
         print_date(now)
 
-    time.sleep(0.01)
+    time.sleep(20)
     last_t = now
 
 gracefull_exit()
