@@ -25,7 +25,11 @@ $ pip install bitcoin-price-api
 Options
 =======
 
-usage: ./clockr/clockr [−h] [−V] [−c COLOR]
+usage: 
+
+```bash
+$ ./clockr/clockr [−h] [−V] [−c COLOR]
+```
 
 **optional arguments: −h**, **−−help**
 
