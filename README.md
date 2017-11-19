@@ -13,10 +13,14 @@ Installation
 
 clone the repository, cd into it and run
 
-::
+```bash
+$ python setup.py install
+```
 
-    # python setup.py install
-    # pip install bitcoin-price-api
+```bash
+$ pip install bitcoin-price-api
+```
+
 
 Options
 =======
