@@ -6,7 +6,7 @@ except ImportError:
 
 setup(name='clockr',
       description='Simple curses clock written in Python',
-      long_description=open('README.rst').read(),
+      long_description=open('README.md').read(),
       version=version,
       author='Johnathan "ShaggyTwoDope" Jenkins',
       author_email='twodopeshaggy@gmail.com',
