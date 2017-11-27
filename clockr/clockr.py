@@ -5,55 +5,10 @@ from math import floor
 from datetime import datetime as date
 import sys
 import time
-import argparse
 import signal
-import random
 from exchanges.bitfinex import Bitfinex
-try:
-    from .__version__ import __version__
-except SystemError:
-    from __version__ import __version__
 
-
-def get_args():
-    """get all args"""
-    parser = argparse.ArgumentParser(
-        description='Simple curses clock written in Python.\n\
-                Press q to exit.',
-        epilog="Made with help from #linuxmasterrace on Snoonet thanks to n473,\
-                thimoteus, AWindowsKrill, timawesomeness, calexil, tirkaz \
-                and somehow R0flcopt3r, with additional help from bdalenoord \
-                and Noremac201.")
-    parser.add_argument('-V', '-v', '--version', action='version',
-                        version='%(prog)s ' + __version__)
-    parser.add_argument(
-        '-c', '--color', type=str, help='changes color of the clock.',
-        required=False)
-    parser.add_argument(
-        '-d', '--dateformat', type=str, help='changes the format in which the \
-                date is printed, see \'man date\' for support on formats. \
-                Not to be combined with the \'--nodate\'-argument.',
-        required=False, default=None)
-    parser.add_argument(
-        '-n', '--nodate', action='store_true', help='does not print the date \
-                in the clock', required=False)
-    parser.add_argument(
-        '-t', '--twentyfourhours', action='store_true', help='prints the time \
-                in 24-hour format', required=False, default=None)
-    args = parser.parse_args()
-    color = args.color
-    dateformat = args.dateformat
-    nodate = args.nodate
-    twentyfourhourarg = args.twentyfourhours
-    conflictdate = args.dateformat, args.nodate
-    if all(conflictdate):
-        sys.exit('Conflict in options: can not use \
-                nodate option with dateformat.')
-    return color, dateformat, nodate, twentyfourhourarg
-
-
-color, dateformat, nodate, twentyfourhourarg = get_args()
-
+last_price = 0
 
 screen = curses.initscr()
 width = 0
@@ -85,28 +40,6 @@ glyph = {
 }
 
 
-def getcolor():
-    """color selection"""
-    colors = {
-        "red": 1,
-        "green": 2,
-        "yellow": 3,
-        "blue": 4,
-        "magenta": 5,
-        "cyan": 6,
-        "white": 7,
-        "orange": 9,
-        "random": random.randint(1, 255)
-    }
-
-    if color is not None and color.lower() in colors.keys():
-        curses.init_pair(1, 0, -1)
-        curses.init_pair(2, colors[color], -1)
-        curses.init_pair(3, 0, colors[color])
-    else:
-        pass
-
-
 def addstr(y, x, string, color):
     try:
         screen.addstr(origin_y + y, origin_x + x, string, color)
@@ -115,10 +48,14 @@ def addstr(y, x, string, color):
         return
 
 
-def print_time(now):
-    """main time function"""
-    # time_line = now.strftime("%I:%M:%S")
+def print_price(now):
+    global last_price
+    """main price function"""
     price = Bitfinex().get_current_price()
+    tick_color = 4 if price >= last_price else 2
+    usd_color = 5 if price >= last_price else 3
+    last_price = price
+
     time_line = str(int(round(price)))
     time_array = ["" for i in range(0, 7)]
 
@@ -133,28 +70,20 @@ def print_time(now):
     for y in range(0, len(time_array)):
         for x in range(0, len(time_array[y])):
             char = time_array[y][x]
-            color = 1 if char == " " else 3
+            color = 1 if char == " " else tick_color
 
-            # If we run in 24-hour mode, the AM/PM will be omitted.
-            # This then leads to a misaligned clock, thus
-            # we need to move the clock to the right 2 columns
             addstr(y, x + offset_x, " ", curses.color_pair(color))
 
-    addstr(6, offset_x + len(time_array[0]), 'USD',
-           curses.color_pair(2) | curses.A_BOLD)
+    addstr(6, offset_x + len(time_array[0]), 'USD', curses.color_pair(usd_color))
 
 
 def print_date(now):
     """main date function"""
     day_line = now.strftime("%A").center(11, " ")
-    date_line = now.strftime("%B %d, %Y") if not dateformat \
-        else now.strftime(dateformat)
-    if nodate:
-        pass
-    else:
-        addstr(8, 0, day_line, curses.color_pair(2))
-        addstr(8, len(day_line) + 40, date_line,
-               curses.color_pair(2) | curses.A_BOLD)
+    date_line = now.strftime("%B %d, %Y")
+
+    addstr(8, 0, day_line, curses.color_pair(0))
+    addstr(8, len(day_line) + 40, date_line, curses.color_pair(0))
 
 
 def gracefull_exit(signal=None):
@@ -177,10 +106,17 @@ screen.keypad(1)
 curses.curs_set(0)
 curses.start_color()
 curses.use_default_colors()
-# if no arguments use these values
+# init curses color pairs
 curses.init_pair(1, 0, -1)
-curses.init_pair(2, 5, -1)
-curses.init_pair(3, 0, 5)
+# black on red
+curses.init_pair(2, 0, 1)
+# red on black
+curses.init_pair(3, 1, 0)
+# black on green
+curses.init_pair(4, 0, 2)
+# green on black
+curses.init_pair(5, 2, 0)
+
 curses.noecho()
 curses.cbreak()
 screen.timeout(0)
@@ -193,12 +129,10 @@ signal.signal(signal.SIGTERM, gracefull_exit)
 def main():
     """lets run this thing"""
 
-
 a = 0
-getcolor()
 win_resize()
 now = date.now()
-print_time(now)
+print_price(now)
 print_date(now)
 
 while True:
@@ -210,10 +144,10 @@ while True:
 
     now = date.now()
     if last_t and now.timetuple()[:6] != last_t.timetuple()[:6]:
-        print_time(now)
+        print_price(now)
         print_date(now)
 
-    time.sleep(20)
+    time.sleep(10)
     last_t = now
 
 gracefull_exit()
