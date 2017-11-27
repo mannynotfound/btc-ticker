@@ -51,7 +51,10 @@ def addstr(y, x, string, color):
 def print_price(now):
     global last_price
     """main price function"""
-    price = Bitfinex().get_current_price()
+    try:
+        price = Bitfinex().get_current_price()
+    except Exception as e:
+        return
     tick_color = 4 if price >= last_price else 2
     usd_color = 5 if price >= last_price else 3
     last_price = price
