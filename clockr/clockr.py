@@ -55,11 +55,13 @@ def print_price(now):
         price = Bitfinex().get_current_price()
     except Exception as e:
         return
+
+    price = int(round(price))
     tick_color = 4 if price >= last_price else 2
     usd_color = 5 if price >= last_price else 3
     last_price = price
 
-    time_line = str(int(round(price)))
+    time_line = str(price)
     time_array = ["" for i in range(0, 7)]
 
     for char in time_line:
@@ -150,7 +152,7 @@ while True:
         print_price(now)
         print_date(now)
 
-    time.sleep(10)
+    time.sleep(15)
     last_t = now
 
 gracefull_exit()
